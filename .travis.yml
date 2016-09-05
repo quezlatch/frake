@@ -6,4 +6,4 @@ install:
   - sudo ./install-dotnet-core.sh
   - bundle install
 
-script: bundle exec rake && bundle exec rake ping && bundle exec rake stop_server
+script: ./build.sh
