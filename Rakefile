@@ -34,13 +34,19 @@ end
 
 task :ping do
     begin
+        retries ||= 0
         uri = URI('http://localhost:5000')
         res = Net::HTTP.get_response(uri)
         fail "request failed with code #{res.code}" unless res.code == '200'
         fail 'api is not ready' unless res.body.include? '"status": true'
         puts 'API IS RUNNING'
     rescue Exception => e 
-        fail "api request failed ---> #{e.message}"
+        if (retries += 1) < 10
+            sleep 1000
+            retry 
+        else
+            fail "api request failed ---> #{e.message}"
+        end
     end
 end
 
