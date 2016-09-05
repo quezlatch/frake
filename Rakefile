@@ -40,7 +40,7 @@ task :ping do
         res = Net::HTTP.get_response(uri)
         fail "request failed with code #{res.code}" unless res.code == '200'
         fail 'api is not ready' unless res.body.include? '"status": true'
-        puts 'API IS RUNNING'
+        puts 'SUCCESS => API CONFIRMED AS RUNNING'
     rescue Exception => e 
         if (retries += 1) < 10
             sleep 1
