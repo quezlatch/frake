@@ -1,5 +1,7 @@
 language: ruby # because I want rake?
 
+dist: trusty
+
 install:
   - sudo ./install-dotnet-core.sh
   - bundle install
