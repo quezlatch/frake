@@ -1,3 +1,7 @@
-language: csharp
-solution: Program.cs
+language: ruby # because I want rake?
+
+install:
+  - sudo ./install-dotnet-core-debian.sh
+  - bundle install
+
 script: bundle exec rake
