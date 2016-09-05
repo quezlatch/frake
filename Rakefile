@@ -28,7 +28,8 @@ task :restore do
 end
 
 task :start do
-    pid = Process.spawn('dotnet', 'run')
+    pid = Process.spawn 'dotnet', 'run'
+    sleep 3 # :/
     Process.detach pid
 end
 
@@ -42,7 +43,8 @@ task :ping do
         puts 'API IS RUNNING'
     rescue Exception => e 
         if (retries += 1) < 10
-            sleep 1000
+            sleep 1
+            puts "retrying (attempt #{retries})"
             retry 
         else
             fail "api request failed ---> #{e.message}"
