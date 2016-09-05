@@ -1,7 +1,7 @@
 language: ruby # because I want rake?
 
 install:
-  - sudo ./install-dotnet-core-debian.sh
+  - sudo ./install-dotnet-core.sh
   - bundle install
 
 script: bundle exec rake
