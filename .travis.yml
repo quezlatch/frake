@@ -1,0 +1,3 @@
+language: csharp
+solution: Program.cs
+script: bundle exec rake
