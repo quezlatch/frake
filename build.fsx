@@ -2,30 +2,25 @@
 
 open Fake
 
-Target "Clean"( fun _ ->
+Target "Clean" <| fun _ ->
   CleanDirs ["./bin/"; "./obj/"]
-)
 
 if not (DotNetCli.isInstalled()) then failwith "donet cli is not installed"
 
-Target "Restore"( fun _ ->
+Target "Restore" <| fun _ ->
   DotNetCli.Restore (fun p -> { p with NoCache = true })
-)
 
-Target "Start"( fun _ ->
-  fireAndForget (fun info ->
+Target "Start" <| fun _ ->
+  fireAndForget <| fun info ->
     info.FileName <- "dotnet"
-    info.Arguments <- "run")
-)
+    info.Arguments <- "run"
 
-Target "Default"( fun _ ->
+Target "Default" <| fun _ ->
   trace "all good"
-)
 
 "Clean"
   ==> "Restore"
   ==> "Start"
   ==> "Default"
-
 
 RunTargetOrDefault "Default"
