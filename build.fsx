@@ -10,10 +10,16 @@ if not (DotNetCli.isInstalled()) then failwith "donet cli is not installed"
 Target "Restore" <| fun _ ->
   DotNetCli.Restore (fun p -> { p with NoCache = true })
 
+open System.Threading
 Target "Start" <| fun _ ->
   fireAndForget <| fun info ->
     info.FileName <- "dotnet"
     info.Arguments <- "run"
+  Thread.Sleep 3000
+
+Target "Ping" <| fun _ ->
+  let res = REST.ExecuteGetCommand "userName" "password" "http://localhost:5000"
+  if not (res.Contains("\"status\": true")) then failwith "api request failed"
 
 Target "Default" <| fun _ ->
   trace "all good"
@@ -21,6 +27,7 @@ Target "Default" <| fun _ ->
 "Clean"
   ==> "Restore"
   ==> "Start"
+  ==> "Ping"
   ==> "Default"
 
 RunTargetOrDefault "Default"
