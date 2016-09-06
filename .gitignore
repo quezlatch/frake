@@ -3,3 +3,5 @@ bin/
 obj/
 project.lock.json
 server.pid
+Tools/
+.fake/

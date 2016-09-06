@@ -1,3 +1,4 @@
 #! /bin/bash
 
-bundle exec rake && bundle exec rake ping && bundle exec rake stop_server
+nuget install FAKE -OutputDirectory Tools -ExcludeVersion
+mono ./Tools/FAKE/tools/FAKE.exe
