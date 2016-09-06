@@ -13,7 +13,9 @@ Target "Restore"( fun _ ->
 )
 
 Target "Start"( fun _ ->
-  DotNetCli.RunCommand id "run"
+  fireAndForget (fun info ->
+    info.FileName <- "dotnet"
+    info.Arguments <- "run")
 )
 
 Target "Default"( fun _ ->
