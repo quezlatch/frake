@@ -2,7 +2,7 @@ require 'net/http'
 
 app_dir = './src/ConsoleApplication'
 test_dir = './test/ConsoleApplication.Test'
-SERVER_PID = app_dir + '/server.pid'
+SERVER_PID = './server.pid'
 
 def kill_process(pid)
     Process.kill("INT", pid.to_i)
