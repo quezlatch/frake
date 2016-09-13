@@ -10,11 +10,14 @@ if not (DotNetCli.isInstalled()) then failwith "donet cli is not installed"
 Target "Restore" <| fun _ ->
   DotNetCli.Restore (fun p -> { p with NoCache = true })
 
+Target "Test" <| fun _ ->
+  !!"test/*/project.json" |> DotNetCli.Test id
+
 open System.Threading
 Target "Start" <| fun _ ->
   fireAndForget <| fun info ->
     info.FileName <- "dotnet"
-    info.Arguments <- "run"
+    info.Arguments <- "run -p src/ConsoleApplication/project.json"
   Thread.Sleep 3000
 
 Target "Ping" <| fun _ ->
@@ -26,6 +29,7 @@ Target "Default" <| fun _ ->
 
 "Clean"
   ==> "Restore"
+  ==> "Test"
   ==> "Start"
   ==> "Ping"
   ==> "Default"
