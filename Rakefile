@@ -1,5 +1,7 @@
 require 'net/http'
 
+app_dir = './src/ConsoleApplication'
+test_dir = './test/ConsoleApplication.Test'
 SERVER_PID = './server.pid'
 
 def kill_process(pid)
@@ -27,8 +29,12 @@ task :restore do
     sh "dotnet restore"
 end
 
+task :test do
+    sh "dotnet test " + test_dir
+end
+
 task :start do
-    pid = Process.spawn 'dotnet', 'run'
+    pid = Process.spawn 'dotnet', 'run', '-p', app_dir
     sleep 3 # :/
     Process.detach pid
 end
@@ -52,4 +58,4 @@ task :ping do
     end
 end
 
-task default: [:clean, :restore, :start]
+task default: [:clean, :restore, :test, :start]
